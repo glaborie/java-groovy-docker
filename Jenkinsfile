@@ -1,7 +1,7 @@
 node{
       def dockerImageName= 'glabo/javadedockerapp_$JOB_NAME:$BUILD_NUMBER'
       stage('SCM Checkout'){
-         git 'https://github.com/LovesCloud/java-groovy-docker'
+         git 'https://github.com/glaborie/java-groovy-docker'
       }
       stage('Build'){
          // Get maven home path and build
@@ -19,7 +19,7 @@ node{
       }  
    
       stage('Publish Docker Image'){
-         withCredentials([string(credentialsId: 'dockerpwd', variable: 'dockerPWD')]) {
+         withCredentials([string(credentialsId: 'dockerpwdglabo', variable: 'dockerPWD')]) {
               sh "docker login -u glabo -p ${dockerPWD}"
          }
         sh "docker push ${dockerImageName}"
